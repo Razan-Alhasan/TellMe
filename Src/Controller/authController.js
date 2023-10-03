@@ -1,6 +1,6 @@
 import userModel from "../../DB/Models/userModel.js";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import { signupSchema, signinSchema } from "../Validation/authValidation.js";
 import sendEmail from "../Services/sendEmail.js";
 export const signup = async (req, res) => {
@@ -28,7 +28,7 @@ export const signup = async (req, res) => {
         gender,
     });
     const token = jwt.sign({ email }, process.env.EMAILTOKEN, { expiresIn: "1h" });
-    const RefreshToken = jwt.sign({ email }, process.env.EMAILTOKEN, {expiresIn: "60*60*24"});
+    const RefreshToken = jwt.sign({ email }, process.env.EMAILTOKEN, {expiresIn: 60*60*24});
     const link = `${req.protocol}://${req.headers.host}/auth/confirmEmail/${token}`;
     const refreshLink = `${req.protocol}://${req.headers.host}/auth/newConfirmEmail/${RefreshToken}`;
     const html = `<a href=${link}>Confirm Email </a> </br> </br> <a href=${refreshLink}>request new Email </a>`;
@@ -72,7 +72,7 @@ export const confirmEmail = async (req, res, next) => {
         return res.status(400).json({message:"your email is verified"})
     }
     if (user) {
-        return res.redirect(process.env.FRONTENDLOGIN);
+        return res.json({message: "your email is confirmed, plz log in.."});
     }
 };
 export const newConfirmEmail = async (req, res, next) => {

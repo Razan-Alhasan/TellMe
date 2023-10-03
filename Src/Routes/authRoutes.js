@@ -7,5 +7,5 @@ import { signinSchema, signupSchema } from '../Validation/authValidation.js';
 app.post("/signup", validation(signupSchema), asyncHandler(authController.signup));
 app.post("/signin", validation(signinSchema), asyncHandler(authController.signin));
 app.put("/confirmEmail/:token", asyncHandler(authController.confirmEmail));
-app.put("/newConfirmEmail/:token", asyncHandler(authController.newConfirmEmail));
+app.put("/newConfirmEmail/:RefreshToken", asyncHandler(authController.newConfirmEmail));
 export default app;
