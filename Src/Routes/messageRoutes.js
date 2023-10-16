@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-import * as messageController from "../Controller/messageController.js";
+import * as messageController from "../Controllers/messageController.js";
 import { auth } from '../Middleware/authMiddleware.js';
 import { asyncHandler } from '../Middleware/errorHandling.js';
 

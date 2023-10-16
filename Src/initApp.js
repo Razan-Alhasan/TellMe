@@ -13,5 +13,10 @@ const initApp = (app, express) => {
     app.use('*', (req, res) => {
         return res.json({message: "PAGE NOT FOUND"});
     });
+    app.use((err, req, res, next) => {
+        if (err) {
+            return res.json({message: err.message})
+        }
+    })
 };
 export default initApp;
